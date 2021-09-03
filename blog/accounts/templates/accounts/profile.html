@@ -1,0 +1,67 @@
+{% extends 'layouts/app.html' %}
+
+{% block content %}
+{% load widget_tweaks %}
+<div class="row justify-content-center">
+    <div class="card col-8 my-3 py-5 px-2" style="">
+        <div class="media">
+            
+              <img class="media-object rounderd-circle" style="max-width: 300px;" src="{{ user.profile.image.url }}">
+            
+            <div class="media-body pl-5">
+                <h2 class="media-heading">{{ user.first_name }}</h2>
+            
+                <p>{{ user.email }}</p>
+            </div>
+        </div>
+        <fieldset><legend>Edit profile</legend>
+            {% include 'shared/flash_msg.html' %}
+            <form method="post" novalidate class="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if form.non_field_errors|length %}
+                        <div class="alert alert-danger">
+                            {% for error in form.non_field_errors %}
+                            <small class="form-text text-muted">{{ error }}</small>
+                            {% endfor%}
+                        </div>
+                {% endif %}
+              
+                {% for field in u_form %}
+                    <div class="form-group">
+                       
+                        {{ field.label_tag }} {% if field.field.required %}<span class="required text-danger">*</span>{% endif %}
+                    
+                            {% if field.errors %}
+                            {{ field|add_class:'form-control is-invalid' }}
+                            {% else %} 
+                            {{ field|add_class:'form-control' }}
+                            {% endif %}
+                        <div class="invalid-feedback">{% for error in field.errors %}{{ error }}{% endfor%}</div>
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                {% for field in p_form %}
+                    <div class="form-group">
+                       
+                        {{ field.label_tag }} {% if field.field.required %}<span class="required text-danger">*</span>{% endif %}
+                    
+                            {% if field.errors %}
+                            {{ field|add_class:'form-control is-invalid' }}
+                            {% else %} 
+                            {{ field|add_class:'form-control' }}
+                            {% endif %}
+                        <div class="invalid-feedback">{% for error in field.errors %}{{ error }}{% endfor%}</div>
+                        {% if field.help_text %}
+                        <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+                <input type="submit" value="Submit" class="btn btn-primary">
+            </form>
+            </fieldset>
+    </div>
+</div>
+
+{% endblock %}

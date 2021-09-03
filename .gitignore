@@ -1,0 +1,3 @@
+Pipfile.lock
+blog/media/profile_pics/*
+!blog/media/profile_pics/.gitkeep

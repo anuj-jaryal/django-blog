@@ -1,0 +1,12 @@
+{% extends 'layouts/app.html' %}
+{% load i18n %}
+{% block content %}
+<div class="row justify-content-center m-5" style="height: 100vh;">
+    <div class="" style="">
+        <p>{% translate "Thanks for spending some quality time with the Web site today." %}</p>
+
+        <p><a href="{% url 'login' %}">{% translate 'Log in again' %}</a></p>
+    </div>
+</div>
+
+{% endblock %}

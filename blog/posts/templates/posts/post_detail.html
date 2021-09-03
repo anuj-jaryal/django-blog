@@ -1,0 +1,39 @@
+{% extends 'layouts/app.html' %}
+
+{% block content %}
+<div class="row my-3">
+    <div class="col-3">
+       {% include 'posts/partials/sidebar.html' %}
+    </div>
+    <div class="col-8 offset-1  card py-3" style="min-height: 100vh;">
+
+        <div class="media">
+            <a class="pull-left" href="#">
+              <img style="max-width: 300px;" class="media-object" src="{{ object.user.profile.image.url }}">
+            </a>
+            <div class="media-body p-2">
+                <div class="row">
+                  <div class="col-8">
+                    <h4 class="media-heading">{{ object.title }}</h4>
+                    <p class="text-right">By {{ object.user.first_name }} on {{ object.date_posted|date:"F d, Y" }}</p>
+                  </div>
+                  <div class="col-4">
+                    {% if object.user == user %}
+                      <a class="btn btn-sm btn-outline-info" href="{% url 'posts:edit' object.id %}">Edit</a>
+                      <a class="btn btn-sm btn-outline-danger" href="{% url 'posts:delete' object.id %}">Delete</a>
+                    {% endif %}
+
+                  </div>
+                </div>
+                
+
+                <p>{{ object.description }}</p>
+            
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}

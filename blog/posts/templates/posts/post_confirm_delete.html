@@ -1,0 +1,23 @@
+{% extends 'layouts/app.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="row my-3">
+    <div class="col-3">
+       {% include 'posts/partials/sidebar.html' %}
+    </div>
+    <div class="col-8 offset-1  card py-3">
+
+        <form method="post" novalidate class="">
+            <fieldset><legend>Delete Post</legend>
+                {% csrf_token %}
+                <h2>Are you sure you want to delete the post "{{ object.title }}"</h2>
+                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                <a href="{% url 'posts:detail' object.id %}" class="btn btn-outline-success" >Cancel</a>
+            </fieldset>
+        </form>
+
+
+    </div>
+</div>
+
+{% endblock %}

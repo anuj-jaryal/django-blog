@@ -1,0 +1,40 @@
+{% extends 'layouts/app.html' %}
+
+{% block content %}
+{% load widget_tweaks %}
+<div class="row justify-content-center align-items-center my-5" style="height: auto;">
+    <div class="card p-5" style="">
+        <form method="post" novalidate class="">
+        <fieldset><legend>Register</legend>
+            {% csrf_token %}
+            {% if form.non_field_errors|length %}
+                    <div class="alert alert-danger">
+                        {% for error in form.non_field_errors %}
+                        <small class="form-text text-muted">{{ error }}</small>
+                        {% endfor%}
+                    </div>
+            {% endif %}
+          
+            {% for field in form %}
+                <div class="form-group">
+                   
+                    {{ field.label_tag }} {% if field.field.required %}<span class="required text-danger">*</span>{% endif %}
+                
+                        {% if field.errors %}
+                        {{ field|add_class:'is-invalid' }}
+                        {% else %} 
+                        {{ field }}
+                        {% endif %}
+                    <div class="invalid-feedback">{% for error in field.errors %}{{ error }}{% endfor%}</div>
+                    {% if field.help_text %}
+                    <small class="form-text text-muted">{{ field.help_text|safe }}</small>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            <input type="submit" value="Signup" class="btn btn-primary">
+        </fieldset>
+        </form>
+    </div>
+</div>
+
+{% endblock %}
